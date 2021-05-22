@@ -7,7 +7,6 @@ class Parachute_Tracker:
             self (Parachute): An instance of Parachute.
         """
         self.state_num = 0
-        self.keep_playing = True
 
     def get_parachute(self):
         """Prints the parachute according to how many strikes there are.
@@ -28,14 +27,4 @@ class Parachute_Tracker:
         elif self.state_num == 4:
             parachute = "\n   X   \n  /|\  \n  / \  \n \n^^^^^^^"
         return parachute
-
-    def game_continue(self):
-        """determines if the game should continue
-
-        Args:
-            self (Parachute): an instance of Parachute
-        Returns:
-            boolean
-        """
-        if self.state_num == 4:
-            return self.keep_playing == False
+        
