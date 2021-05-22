@@ -1,5 +1,3 @@
-import random
-
 class Parachute_Tracker:
 
     def __init__(self):
@@ -11,6 +9,7 @@ class Parachute_Tracker:
         self.strikes = 0
         self.correct = False
         self.letter = []
+
     
     def update_strikes(self):
         """Adds a strike for each wrong answer.
@@ -25,7 +24,7 @@ class Parachute_Tracker:
             self.strikes += 1
         
     def is_correct(self):
-        """Determines whether the letter guessed is a letter in the word or not.
+        """Determines if the letter was guessed correctly or not
 
         Args:
             self (Parachute): an instance of Parachute.
@@ -45,43 +44,13 @@ class Parachute_Tracker:
         Returns:
             string: the amount of parachute that is left.
         """
-        if self.strikes == 0: 
-            print("  ___  ")
-            print(" /___\ ")
-            print(" \   / ")
-            print("  \ /  ")
-            print("   0   ")
-            print("  /|\  ")
-            print("  / \  ")
-            print()
-            print("^^^^^^^")
-        elif self.strikes == 1:
-            print(" /___\ ")
-            print(" \   / ")
-            print("  \ /  ")
-            print("   0   ")
-            print("  /|\  ")
-            print("  / \  ")
-            print()
-            print("^^^^^^^")
+        parachute = "\n  ___  \n /___\  \n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
+        if self.strikes == 1:
+            parachute = "\n  /___\  \n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
         elif self.strikes == 2:
-            print(" \   / ")
-            print("  \ /  ")
-            print("   0   ")
-            print("  /|\  ")
-            print("  / \  ")
-            print()
-            print("^^^^^^^")
+            parachute = "\n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
         elif self.strikes == 3:
-            print("  \ /  ")
-            print("   0   ")
-            print("  /|\  ")
-            print("  / \  ")
-            print()
-            print("^^^^^^^")
-        else:
-            print("   X   ")
-            print("  /|\  ")
-            print("  / \  ")
-            print()
-            print("^^^^^^^")
+            parachute = "\n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
+        elif self.strikes == 4:
+            parachute = "\n   X   \n  /|\  \n  / \  \n \n^^^^^^^"
+        return parachute
