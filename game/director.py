@@ -14,10 +14,15 @@ class Director:
 
     Attributes:
         console (Console): An instance of the class of objects known as Console.
+                Description - console receives inputs and displays outputs.
         keep_playing (boolean): Whether or not the game can continue.
         word_tracker (Word_Tracker): An instance of the class of objects known as Word_Tracker.
+                Description - Word_Tracker receives the var guess_letter from Console
+                        and determines number of dashes remaining to guess.
         parachute_tracker (Parachute_Tracker):
                 An instance of the class of objects known as Parachute_Tracker.
+                Description - Parachute_Tracker receives the var state_num from
+                        do_updates Method; state_num indicates which parachute outcome.
         word_select (Word_Select): An instance of the class of objects known as Word_Select.
     """
 
@@ -57,15 +62,33 @@ class Director:
         self.word_tracker = Word_Tracker(self.word)
         # Create Parachute_Tracker Class instance in start game Method
         self.parachute_tracker = Parachute_Tracker()
-        # Initialize self.state_num for Parachute_Tracker Class to display
-        #                                       one of 5 possible outcomes.
-        self.state_num = 0
+        # Var parachute_tracker.state_num  will display one of 5 possible outcomes.
 
         # (AH) Loop to call Methods to continue game.
         while self.keep_playing:
+            self.do_outputs()
             self.get_inputs()
             self.do_updates()
-            self.do_outputs()
+
+    def do_outputs(self):
+        """
+        Outputs the important game information for each round of play.
+        In this case, that means the correct letter guessed fills in a dash
+        while an incorrect letter guessed causes a parachute cut.
+
+        Args:
+            self (Director): An instance of Director.
+        """
+        # (AH) Print current word guessing results.
+        # (AH) Word_Tracker Class determine word length.
+        # (AH) Get word_status() Method in Word_Tracker Class <Mireya?>.
+        # (AH note) word_status() will return the text for letters and dashes.
+        word_progress = self.word_tracker.word_status()
+        self.console.write(word_progress)
+
+        # (AH) Print current parachute.
+        print_parachute = self.parachute_tracker.get_parachute()
+        self.console.write(print_parachute)
 
     def get_inputs(self):
         """ (AH).
@@ -76,21 +99,6 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-
-        # (AH) Word_Tracker Class determine word length.
-        # (AH) Get word_status() Method in Word_Tracker Class <Mireya?>.
-        word_progress = self.word_tracker.word_status()
-
-        # (AH) Dashes displayed from write() Method in Console Class <Dalton?>.
-        self.console.write(word_progress)
-
-        # (AH) Get initial parachute from Parachute_Tracking Class. <Kelton?>.
-        # (AH) Parachute_Tracking Class has 5 output possibilities. <Kelton?>.
-        # (AH) self.state_num initialized in start_game() Method.
-        parachute_progress = self.parachute_tracking.parachute_draw(self.state_num)
-
-        # (AH) Send parachute to console to display.  <Dalton?>
-        self.console.write(parachute_progress)
 
         # (AH) Class Var assigned to gett letter guess from user.
         self.guess_letter = self.console.read_word("Guess a letter [a-z]:  ")
@@ -110,31 +118,15 @@ class Director:
         # 	parachute as prior turn; or guess_letter is incorrect
         # 	and returns a Boolean for the parachute to be cut.
         # (AH) guess_correct is a Boolean data type.
-        self.guess_correct = self.word_tracker.track(self.guess_letter)
+        guess_correct = self.word_tracker.track(self.guess_letter)
 
         # (AH) increment self.state_num if word_tracker.track(self.guess_letter) is False.
-        if not self.guess_correct:
+        if not guess_correct:
             self.state_num += 1
 
         # (AH) Parachute_Tracking Class determine correct parachute to display;
         #                                       depending on self.state_num.
         # parachute_progress = self.parachute_tracking.parachute_draw(self.state_num)
 
-        # (AH) Send parachute to console to display.
-        # self.console.write(parachute_progress)
-
-    def do_outputs(self):
-        """
-        Outputs the important game information for each round of play.
-        In this case, that means the correct letter guessed fills in a dash
-        while an incorrect letter guessed causes a parachute cut.
-
-        Args:
-            self (Director): An instance of Director.
-        """
-
-        # (AH) Parachute_Tracker Class determines when game ends. <Kelton?>
-        # (AH) Game ends when parachute has been cut 4 times.
-        current_parachute = self.parachute_tracker.game_continue()
-        self.console.write(current_parachute)
-        self.keep_playing = self.parachute_tracker.game_continue() is True
+        # (AH) KELTON suggest use !=4  to determine if game over, like Solo CkPt. ???
+        self.keep_playing = self.parachute_tracker.game_continue()
