@@ -2,11 +2,11 @@ import os
 from game.parachute_tracker import Parachute_Tracker
 
 class Console:
-    """A code template for a computer console. The responsibility of this 
+    """A code template for a computer console. The responsibility of this
     class of objects is to control CLI display. This includes clearing the
     screen, coordinating the printing of game screen instances (with the
     parachute, word letters/blanks, and prompt), and receiving user input.
-    
+
     Stereotype:
         Service Provider, Interfacer
 
@@ -19,7 +19,7 @@ class Console:
 
     def __init__(self):
         """The class constructor.
-        
+
         Args:
             self (Console): an instance of Console.
         """
@@ -29,15 +29,15 @@ class Console:
     def clear_screen(self):
         """Detects OS type and sends appropriate console command to clear screen.
 
-        Args: 
+        Args:
             self (Console): An instance of Console.
         """
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def write(self, word_progress):
+    def write_output(self, word_progress):
         """Performs all output to console, prompts user input.
 
-        Args: 
+        Args:
             self (Console): An instance of Console.
         """
         prompt = "\nGuess a letter [a-z]: "
@@ -52,13 +52,24 @@ class Console:
                 break
 
             prompt = "\nPlease enter a letter [a-z]\nyou have not guessed yet: "
-            
+
         self.guess = letter
 
-    def read(self):
+    def write(self, msg):
+        """ (AH)
+        Displays string message.
+
+        Args:
+            msg = a string parameter.
+        """
+        print(msg)
+
+
+    def read_letter(self, msg):
         """Returns user's letter guess as one-character string.
 
-        Args: 
+        Args:
             self (Console): An instance of Console.
         """
-        return self.guess
+        # (AH)
+        return input(msg)
