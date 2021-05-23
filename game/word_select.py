@@ -16,8 +16,8 @@ class Word_Select:
                  a string containing the picked word.
         """
         # (SA) reads the file and splits it into a list
-        word_file = open("wordlist.10000.txt", "r")
-        content = word_file.read()
+        with open("game/wordlist10000.txt", "r") as word_file:
+            content = word_file.read()
         content_list = content.split()
         # (SA) picks a word
         picked_word = random.sample(content_list,1)
@@ -27,9 +27,6 @@ class Word_Select:
             final_word = ele
         # (SA) returns string word
         return final_word
-
-
-
 
 
 
