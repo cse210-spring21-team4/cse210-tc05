@@ -22,9 +22,10 @@ class Console:
 
         Args:
             self (Console): an instance of Console.
+            Parachute_Tracker (Console): an instance of Parachute_Tracker.
         """
         self.guess = ""
-        self.parachute = Parachute_Tracker().get_parachute()
+        self.Parachute_Tracker = Parachute_Tracker()
 
     def clear_screen(self):
         """Detects OS type and sends appropriate console command to clear screen.
@@ -34,7 +35,7 @@ class Console:
         """
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def write_output(self, word_progress):
+    def write(self, word_progress = str, num_strikes = int):
         """Performs all output to console, prompts user input.
 
         Args:
@@ -44,8 +45,9 @@ class Console:
         while True:
             self.clear_screen()
 
-            print(word_progress)
-            print(self.parachute)
+            print("\n" + word_progress)
+
+            print(self.Parachute_Tracker.get_parachute(num_strikes))
 
             letter = input(prompt).lower().strip()
             if letter.isalpha() and len(letter) == 1 and (letter not in word_progress):
@@ -55,21 +57,24 @@ class Console:
 
         self.guess = letter
 
-    def write(self, msg):
-        """ (AH)
-        Displays string message.
-
-        Args:
-            msg = a string parameter.
-        """
-        print(msg)
-
-
-    def read_letter(self, msg):
+    def read(self):
         """Returns user's letter guess as one-character string.
 
         Args:
             self (Console): An instance of Console.
         """
         # (AH)
-        return input(msg)
+        # return input(msg)
+        return self.guess
+
+    def print_loss(self):
+        self.clear_screen()
+        print("\n\n\tYou lost. Better luck next time.")
+        input("\n\tPress ENTER to exit.")
+        self.clear_screen()
+
+    def print_victory(self):
+        self.clear_screen()
+        print("\n\n\tYou won! Well done!")
+        input("\n\tPress ENTER to exit.")
+        self.clear_screen()

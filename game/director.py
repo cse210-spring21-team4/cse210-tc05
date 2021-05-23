@@ -17,7 +17,7 @@ class Director:
                 Description - console receives inputs and displays outputs.
         keep_playing (boolean): Whether or not the game can continue.
         word_tracker (Word_Tracker): An instance of the class of objects known as Word_Tracker.
-                Description - Word_Tracker receives the var guess_letter from Console
+                Description - Word_Tracker receives the var letter_guess from Console
                         and determines number of dashes remaining to guess.
         parachute_tracker (Parachute_Tracker):
                 An instance of the class of objects known as Parachute_Tracker.
@@ -37,11 +37,13 @@ class Director:
         self.console = Console()
         # self.word_tracker = Word_Tracker()
         # (AH) instantiate Word_Tracker() in start_game Method so Word chosen once per game.
-        self.keep_playing = True
+        # self.keep_playing = True
         # self.parachute_tracker = Parachute_Tracker()
         # (AH) instantiate Parachute_Tracker() in start_game Method
         #               so parachute is refreshed for each game.
         self.word_select = Word_Select()
+        self.letter_guess = ''
+        self.strikes = 0
 
     def start_game(self):
         """
@@ -56,6 +58,7 @@ class Director:
         # (AH) Class Var assigned to select_word() Method in Word_Select Class <SarahA>.
         self.word = self.word_select.Word_Select()
 
+
         # (AH) Explanation:
         # Create Word_Tracker Class instance in start_game Method so Word_Tracker has self.word.
         # The random chosen word from the MIT list is stored in Word_Tracker Class as self.word
@@ -67,10 +70,16 @@ class Director:
         # Var parachute_tracker.state_num  will display one of 5 possible outcomes.
 
         # (AH) Loop to call Methods to continue game until var keep_playing is False.
-        while self.keep_playing:
+        while True:
             self.do_outputs()
             self.get_inputs()
             self.do_updates()
+            if self.strikes >= 4:
+                self.console.print_loss()
+                break
+            if self.word == self.word_tracker.word_string().replace(" ",""):
+                self.console.print_victory()
+                break
 
     def do_outputs(self):
         """
@@ -86,11 +95,11 @@ class Director:
         # (AH) Get word_status() Method in Word_Tracker Class <Mireya?>.
         # (AH NOTICE) word_string() will return the text for letters and dashes.
         word_progress = self.word_tracker.word_string()
-        self.console.write(word_progress)
+        self.console.write(word_progress, self.strikes)
 
         # (AH) Print current parachute.
-        print_parachute = self.parachute_tracker.get_parachute()
-        self.console.write(print_parachute)
+        # print_parachute = self.parachute_tracker.get_parachute()
+        # self.console.write(print_parachute)
 
     def get_inputs(self):
         """ (AH).
@@ -103,7 +112,8 @@ class Director:
         """
 
         # (AH) Class Var assigned to gett letter guess from user.
-        self.guess_letter = self.console.read_letter("Guess a letter [a-z]:  ")
+        # self.letter_guess = self.console.read_letter("Guess a letter [a-z]:  ")
+        self.letter_guess = self.console.read()
 
     def do_updates(self):
         """
@@ -114,18 +124,18 @@ class Director:
             self (Director): An instance of Director.
         """
 
-        # (AH NOTICE) track_letter Method in Word_Tracker Class determines if guess_letter
+        # (AH NOTICE) track_letter Method in Word_Tracker Class determines if letter_guess
         # 	is correct and be put in place of a dash, then returns a Boolean.
-        # (AH) guess_correct is a Boolean data type.
-        guess_correct = self.word_tracker.trackLetter(self.guess_letter)
+        # (AH) guess_not_correct is a Boolean data type.
+        guess_not_correct = not (self.word_tracker.trackLetter(self.letter_guess))
 
-        # (AH) increment self.state_num if word_tracker.track(self.guess_letter) is False.
-        if not guess_correct:
-            self.parachute_tracker.add_strike()
+        # (DW) increment self.strikes if word_tracker.track(self.letter_guess) is False.
+        if guess_not_correct:
+            self.strikes += 1
 
         # (AH) Parachute_Tracking Class contains correct parachute to display;
         #                                       depending on self.state_num.
 
         # (AH) Game over after 4 parachute cuts.
-        if self.parachute_tracker.state_num >= 4:
-            self.keep_play = False
+        # if self.strikes >= 4:
+        #     self.keep_play = False

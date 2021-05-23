@@ -17,33 +17,26 @@ class Parachute_Tracker:
         Args:
             self (Parachute): An instance of Parachute.
         """
-        self.state_num = 0
 
-    def add_strike(self):
-        """Increments state_num by 1.
-
-        Args:
-            self (Parachute): An instance of Parachute.
-        """
-        self.state_num += 1
-
-    def get_parachute(self):
+    def get_parachute(self, strikes = int):
         """Prints the parachute according to how many strikes there are.
 
         Args:
             self (Parachute): An instance of Parachute.
+            strikes (integer): Number of strikes in game.
         
         Returns:
             string: the amount of parachute that is left.
         """
         parachute = "\n  ___  \n /___\  \n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
-        if self.state_num == 1:
+        
+        if strikes == 1:
             parachute = "\n /___\  \n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
-        elif self.state_num == 2:
+        elif strikes == 2:
             parachute = "\n \   / \n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
-        elif self.state_num == 3:
+        elif strikes == 3:
             parachute = "\n  \ /  \n   0   \n  /|\  \n  / \  \n \n^^^^^^^"
-        elif self.state_num == 4:
+        elif strikes == 4:
             parachute = "\n   X   \n  /|\  \n  / \  \n \n^^^^^^^"
         return parachute
         
