@@ -19,6 +19,14 @@ class Parachute_Tracker:
         """
         self.state_num = 0
 
+    def add_strike(self):
+        """Increments state_num by 1.
+
+        Args:
+            self (Parachute): An instance of Parachute.
+        """
+        self.state_num += 1
+
     def get_parachute(self):
         """Prints the parachute according to how many strikes there are.
 

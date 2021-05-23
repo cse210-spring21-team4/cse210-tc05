@@ -121,7 +121,7 @@ class Director:
 
         # (AH) increment self.state_num if word_tracker.track(self.guess_letter) is False.
         if not guess_correct:
-            self.state_num += 1
+            self.parachute_tracker.add_strike()
 
         # (AH) Parachute_Tracking Class contains correct parachute to display;
         #                                       depending on self.state_num.

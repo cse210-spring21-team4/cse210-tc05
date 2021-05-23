@@ -3,7 +3,7 @@ import random
 
 class Word_Tracker:
 
-    def _init_(self):
+    def __init__(self):
         self.selectedWord = ''
         self.listCorrectLetters = []
 
@@ -11,7 +11,7 @@ class Word_Tracker:
         self.selectedWord = selectedWord
 
     # (AH) called from Director Class, do_updates() Method.
-    # (AH) if letter is in random word from Word_Select Class, return True.
+    # (AH) _if_ letter is in random word from Word_Select Class, return True.
     def trackLetter(self, letter):
         self.listCorrectLetters.append(letter)
         if letter in self.selectedWord:
