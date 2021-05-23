@@ -59,7 +59,9 @@ class Director:
         # (AH) Explanation:
         # Create Word_Tracker Class instance in start_game Method so Word_Tracker has self.word.
         # The random chosen word from the MIT list is stored in Word_Tracker Class as self.word
-        self.word_tracker = Word_Tracker(self.word)
+        self.word_tracker = Word_Tracker()
+        # (AH) Pass in the randomly selected word.
+        self.word_tracker.setSelectedWord(self.word)
         # Create Parachute_Tracker Class instance in start game Method
         self.parachute_tracker = Parachute_Tracker()
         # Var parachute_tracker.state_num  will display one of 5 possible outcomes.
@@ -115,7 +117,7 @@ class Director:
         # (AH NOTICE) track_letter Method in Word_Tracker Class determines if guess_letter
         # 	is correct and be put in place of a dash, then returns a Boolean.
         # (AH) guess_correct is a Boolean data type.
-        guess_correct = self.word_tracker.track_letter(self.guess_letter)
+        guess_correct = self.word_tracker.trackLetter(self.guess_letter)
 
         # (AH) increment self.state_num if word_tracker.track(self.guess_letter) is False.
         if not guess_correct:
@@ -124,6 +126,6 @@ class Director:
         # (AH) Parachute_Tracking Class contains correct parachute to display;
         #                                       depending on self.state_num.
 
-        # (AH) (AH) Determine if game over.
+        # (AH) Game over after 4 parachute cuts.
         if self.parachute_tracker.state_num >= 4:
             self.keep_play = False
