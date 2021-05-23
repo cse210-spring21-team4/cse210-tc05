@@ -1,5 +1,4 @@
 import os
-from game.word_tracker import Word_Tracker
 from game.parachute_tracker import Parachute_Tracker
 
 class Console:
@@ -13,9 +12,8 @@ class Console:
 
     Attributes:
         director (Director): An instance of the class of objects known as Director.
-        word_tracker (Word_Tracker): An instance of the class of objects known as Director.
-        parachute_tracker (Parachute_Tracker): An instance of the class of objects known as Director.
         guess (string): A one-character string of promted user input.
+        parachute_tracker (Parachute_Tracker): An instance of the class of objects known as Parachute_Tracker.
     """
 
 
@@ -26,8 +24,7 @@ class Console:
             self (Console): an instance of Console.
         """
         self.guess = ""
-        self.parachute_tracker = Parachute_Tracker()
-        self.word_tracker = Word_Tracker()
+        self.parachute = Parachute_Tracker().get_parachute()
 
     def clear_screen(self):
         """Detects OS type and sends appropriate console command to clear screen.
@@ -36,14 +33,6 @@ class Console:
             self (Console): An instance of Console.
         """
         os.system('cls' if os.name == 'nt' else 'clear')
-
-    def print_word(self, word_progress):
-        """Uses word_progess object to print word line.
-
-        Args: 
-            self (Console): An instance of Console.
-        """
-        pass
 
     def write(self, word_progress):
         """Performs all output to console, prompts user input.
@@ -54,8 +43,9 @@ class Console:
         prompt = "\nGuess a letter [a-z]: "
         while True:
             self.clear_screen()
-            self.print_word(word_progress)
-            self.parachute_tracker.get_parachute()
+
+            print(word_progress)
+            print(self.parachute)
 
             letter = input(prompt).lower().strip()
             if letter.isalpha() and len(letter) == 1 and (letter not in word_progress):
