@@ -1,6 +1,4 @@
-from game.director import Director
+main
 
 director = Director()
 director.start_game()
-
-import random
