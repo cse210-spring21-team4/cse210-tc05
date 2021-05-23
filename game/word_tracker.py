@@ -1,7 +1,7 @@
 import random
 
 
-class WordTracker:
+class Word_Tracker:
 
     def _init_(self):
         self.selectedWord = ''
