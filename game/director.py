@@ -54,7 +54,7 @@ class Director:
 
         # (Suggestion 1) Word is selected from MIT 1000 word list in reqmts file.
         # (AH) Class Var assigned to select_word() Method in Word_Select Class <SarahA>.
-        self.word = self.word_select.select_word()
+        self.word = self.word_select.Word_Select()
 
         # (AH) Explanation:
         # Create Word_Tracker Class instance in start_game Method so Word_Tracker has self.word.
@@ -64,7 +64,7 @@ class Director:
         self.parachute_tracker = Parachute_Tracker()
         # Var parachute_tracker.state_num  will display one of 5 possible outcomes.
 
-        # (AH) Loop to call Methods to continue game.
+        # (AH) Loop to call Methods to continue game until var keep_playing is False.
         while self.keep_playing:
             self.do_outputs()
             self.get_inputs()
@@ -82,8 +82,8 @@ class Director:
         # (AH) Print current word guessing results.
         # (AH) Word_Tracker Class determine word length.
         # (AH) Get word_status() Method in Word_Tracker Class <Mireya?>.
-        # (AH note) word_status() will return the text for letters and dashes.
-        word_progress = self.word_tracker.word_status()
+        # (AH NOTICE) word_string() will return the text for letters and dashes.
+        word_progress = self.word_tracker.word_string()
         self.console.write(word_progress)
 
         # (AH) Print current parachute.
@@ -101,7 +101,7 @@ class Director:
         """
 
         # (AH) Class Var assigned to gett letter guess from user.
-        self.guess_letter = self.console.read_word("Guess a letter [a-z]:  ")
+        self.guess_letter = self.console.read_letter("Guess a letter [a-z]:  ")
 
     def do_updates(self):
         """
@@ -112,21 +112,18 @@ class Director:
             self (Director): An instance of Director.
         """
 
-        # (AH) Track Method in Word_Tracker Class determines if
-        # 	guess_letter is correct and be put in place of a dash,
-        # 	then returns a Boolean for parachute to display same
-        # 	parachute as prior turn; or guess_letter is incorrect
-        # 	and returns a Boolean for the parachute to be cut.
+        # (AH NOTICE) track_letter Method in Word_Tracker Class determines if guess_letter
+        # 	is correct and be put in place of a dash, then returns a Boolean.
         # (AH) guess_correct is a Boolean data type.
-        guess_correct = self.word_tracker.track(self.guess_letter)
+        guess_correct = self.word_tracker.track_letter(self.guess_letter)
 
         # (AH) increment self.state_num if word_tracker.track(self.guess_letter) is False.
         if not guess_correct:
             self.state_num += 1
 
-        # (AH) Parachute_Tracking Class determine correct parachute to display;
+        # (AH) Parachute_Tracking Class contains correct parachute to display;
         #                                       depending on self.state_num.
-        # parachute_progress = self.parachute_tracking.parachute_draw(self.state_num)
 
-        # (AH) KELTON suggest use !=4  to determine if game over, like Solo CkPt. ???
-        self.keep_playing = self.parachute_tracker.game_continue()
+        # (AH) (AH) Determine if game over.
+        if self.parachute_tracker.state_num >= 4:
+            self.keep_play = False
