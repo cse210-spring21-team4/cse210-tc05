@@ -1,4 +1,15 @@
 class Parachute_Tracker:
+    """A code template for a parachute display. The responsibility of this
+    class of objects is to display an image of a parachuting stick figure,
+    adjusted for the amount of incorrect answers the user has provided.
+    
+    Stereotype:
+        Service Provider
+
+    Attributes:
+        director (Director): An instance of the class of objects known as Director.
+        guess (string): A one-character string of promted user input.
+    """
 
     def __init__(self):
         """Class constructor. Declares and initializes instance attributes.

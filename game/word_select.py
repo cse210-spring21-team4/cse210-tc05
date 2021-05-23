@@ -5,9 +5,9 @@ class Word_Select:
     A class that picks a word from the wordlist10000.txt file.
 
     """
-    def Word_Select():
+    def Word_Select(self):
         """
-        picks a word from the given file named wordselect10000.py
+        Returns a randomly selected word from the given file named wordselect10000.py
 
         arguments:
                  self, an instance of Word_Select.
