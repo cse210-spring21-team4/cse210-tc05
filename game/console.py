@@ -32,7 +32,7 @@ class Console:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def print_word(self, word):
-        """Gets text input from the user through the screen.
+        """Uses word_track object to print word line.
 
         Args: 
             self (Console): An instance of Console.
@@ -40,7 +40,7 @@ class Console:
         pass
 
     def print_chute(self, chute):
-        """Gets text input from the user through the screen.
+        """Uses parachute object to print parachute.
 
         Args: 
             self (Console): An instance of Console.
