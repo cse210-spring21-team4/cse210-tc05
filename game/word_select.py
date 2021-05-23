@@ -16,7 +16,7 @@ class Word_Select:
                  a string containing the picked word.
         """
         # (SA) reads the file and splits it into a list
-        with open("game/wordlist10000.txt", "r") as word_file:
+        with open("wordlist10000.txt", "r") as word_file:
             content = word_file.read()
         content_list = content.split()
         # (SA) picks a word
