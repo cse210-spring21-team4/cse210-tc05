@@ -74,8 +74,9 @@ class Console:
         input("\n\tPress ENTER to exit.")
         self.clear_screen()
 
-    def print_victory(self):
+    def print_victory(self, word = str):
         self.clear_screen()
         print("\n\n\tYou won! Well done!")
+        print(f"\n\tThe word was '{word}'!")
         input("\n\tPress ENTER to exit.")
         self.clear_screen()

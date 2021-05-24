@@ -78,7 +78,7 @@ class Director:
                 self.console.print_loss(self.word)
                 break
             if self.word == self.word_tracker.word_string().replace(" ",""):
-                self.console.print_victory()
+                self.console.print_victory(self.word)
                 break
 
     def do_outputs(self):
