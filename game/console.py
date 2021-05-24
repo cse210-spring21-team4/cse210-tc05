@@ -67,9 +67,10 @@ class Console:
         # return input(msg)
         return self.guess
 
-    def print_loss(self):
+    def print_loss(self, word = str):
         self.clear_screen()
         print("\n\n\tYou lost. Better luck next time.")
+        print(f"\n\tThe word was '{word}'.")
         input("\n\tPress ENTER to exit.")
         self.clear_screen()
 
